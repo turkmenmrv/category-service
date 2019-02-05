@@ -1,0 +1,101 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CategoryRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.demo.demoapp.repository</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CategoryRepository (com.demo.demoapp.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$1115509648</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$1115509648$auxiliary$fYZ8hggh</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$1115509648$auxiliary$RjGBNaJQ</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$1206015966</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$1206015966$auxiliary$7pY0VDTY</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$1206015966$auxiliary$N4mzBMsm</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$325837516</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$325837516$auxiliary$loSzxJR8</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryRepository$MockitoMock$325837516$auxiliary$mNU7Ayig</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.demo.demoapp.repository;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.demo.demoapp.service.category.domain.Category;
+<i>4</i>&nbsp;import org.springframework.data.jpa.repository.Query;
+<i>5</i>&nbsp;import org.springframework.data.repository.CrudRepository;
+<i>6</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;import java.util.UUID;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;@Repository
+<i>12</i>&nbsp;public interface CategoryRepository extends CrudRepository&lt;Category,UUID&gt; {
+<i>13</i>&nbsp;    List&lt;Category&gt; findBySlug(final String slug);
+<i>14</i>&nbsp;    Category findByName(final String name);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    @Query(value = &quot;with recursive category_tree &quot; +
+<i>17</i>&nbsp;            &quot;as( &quot; +
+<i>18</i>&nbsp;            &quot;select id, name, slug, is_visible, parentcategory_id from demo.category &quot; +
+<i>19</i>&nbsp;            &quot;where id = ?1 &quot; +
+<i>20</i>&nbsp;            &quot;union all &quot; +
+<i>21</i>&nbsp;            &quot;select c.id, c.name, c.slug, c.is_visible, c.parentcategory_id &quot; +
+<i>22</i>&nbsp;            &quot;from demo.category c, category_tree t &quot; +
+<i>23</i>&nbsp;            &quot;where t.id = c.parentcategory_id &quot; +
+<i>24</i>&nbsp;            &quot;) &quot; +
+<i>25</i>&nbsp;            &quot;select * from category_tree&quot;, nativeQuery = true)
+<i>26</i>&nbsp;    List&lt;Category&gt; findByParentCategory(final UUID parentcategory);
+<i>27</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-04 01:55</div>
+</div>
+</body>
+</html>

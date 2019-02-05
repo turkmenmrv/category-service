@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CategoryController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.demo.demoapp.web</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CategoryController (com.demo.demoapp.web)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CategoryController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (16/ 20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.demo.demoapp.web;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.demo.demoapp.service.category.CategoryService;
+<i>4</i>&nbsp;import com.demo.demoapp.service.category.domain.Category;
+<i>5</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>6</i>&nbsp;import org.springframework.http.MediaType;
+<i>7</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i>8</i>&nbsp;import org.springframework.web.bind.annotation.*;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.Arrays;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;@RequestMapping(&quot;/api&quot;)
+<i>14</i>&nbsp;@RestController
+<i>15</i>&nbsp;public class CategoryController {
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    private final CategoryService categoryService;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    @Autowired
+<b class="fc"><i>20</i>&nbsp;    public CategoryController(final CategoryService categoryService) {</b>
+<b class="fc"><i>21</i>&nbsp;        this.categoryService = categoryService;</b>
+<b class="fc"><i>22</i>&nbsp;    }</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @PostMapping(value = &quot;/categories&quot; ,
+<i>25</i>&nbsp;            consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+<i>26</i>&nbsp;    public ResponseEntity&lt;String&gt; createCategory(@RequestBody final CategoryRequest categoryRequest){
+<b class="fc"><i>27</i>&nbsp;        final Category category = new Category(categoryRequest.getName(), categoryRequest.getSlug(), categoryRequest.getVisible());</b>
+<b class="fc"><i>28</i>&nbsp;        if(isNotEmpty(categoryRequest.getParentCategory())) {</b>
+<b class="fc"><i>29</i>&nbsp;            category.setParentcategory(categoryService.searchCategoryByName(categoryRequest.getParentCategory()));</b>
+<i>30</i>&nbsp;        }
+<b class="fc"><i>31</i>&nbsp;        final Category c = categoryService.addCategory(category);</b>
+<b class="fc"><i>32</i>&nbsp;        return ResponseEntity.ok(c.getId().toString());</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @GetMapping(value = &quot;/categories&quot;,
+<i>36</i>&nbsp;            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+<i>37</i>&nbsp;    public ResponseEntity&lt;List&lt;Category&gt;&gt; searchCategory(@RequestParam(value = &quot;id&quot;, required = false) final String id,
+<i>38</i>&nbsp;                                                         @RequestParam(value = &quot;slug&quot;, required = false) final String slug){
+<b class="fc"><i>39</i>&nbsp;        if(isNotEmpty(id)){</b>
+<b class="fc"><i>40</i>&nbsp;            return categoryService.searchCategoryById(id)//</b>
+<b class="fc"><i>41</i>&nbsp;                    .map(category -&gt; ResponseEntity.ok(Arrays.asList(category)))//</b>
+<b class="fc"><i>42</i>&nbsp;                    .orElse(ResponseEntity.notFound().build());//</b>
+<i>43</i>&nbsp;        }
+<b class="fc"><i>44</i>&nbsp;        if(isNotEmpty(slug)) {</b>
+<b class="fc"><i>45</i>&nbsp;            return ResponseEntity.ok(categoryService.searchCategoryBySlug(slug));</b>
+<i>46</i>&nbsp;        }
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;        //all of id, slug and parentId should not be empty
+<b class="nc"><i>49</i>&nbsp;        return ResponseEntity.badRequest().build();</b>
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    @GetMapping(value = &quot;/categories/{id}/tree&quot;,
+<i>53</i>&nbsp;            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+<i>54</i>&nbsp;    public ResponseEntity&lt;CategoryTreeResponse&gt; searchSubcategoryTree(@PathVariable(value = &quot;id&quot;) final String id){
+<b class="fc"><i>55</i>&nbsp;        return ResponseEntity.ok(categoryService.searchSubcategoryTree(id));</b>
+<i>56</i>&nbsp;    }
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    @PatchMapping(value = &quot;/categories/{id}&quot;,
+<i>59</i>&nbsp;            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+<i>60</i>&nbsp;    public ResponseEntity&lt;Category&gt; updateCategoryVisibility(@RequestParam(&quot;is_visible&quot;) final Boolean categoryIsVisible,
+<i>61</i>&nbsp;                                                     @PathVariable(&quot;id&quot;) final String id){
+<i>62</i>&nbsp;        try {
+<b class="nc"><i>63</i>&nbsp;            return ResponseEntity.ok(categoryService.updateVisibility(categoryIsVisible, id));</b>
+<i>64</i>&nbsp;        }
+<b class="nc"><i>65</i>&nbsp;        catch (IllegalArgumentException e){</b>
+<b class="nc"><i>66</i>&nbsp;            return ResponseEntity.notFound().build();</b>
+<i>67</i>&nbsp;        }
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    private boolean isNotEmpty(final String id) {
+<b class="fc"><i>71</i>&nbsp;        return id != null &amp;&amp; !id.isEmpty();</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-04 01:55</div>
+</div>
+</body>
+</html>

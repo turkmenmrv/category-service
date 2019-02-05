@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CategoryTreeResponse</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.demo.demoapp.web</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CategoryTreeResponse (com.demo.demoapp.web)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CategoryTreeResponse</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    58.3%
+  </span>
+  <span class="absValue">
+    (7/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    58.3%
+  </span>
+  <span class="absValue">
+    (14/ 24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.demo.demoapp.web;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fasterxml.jackson.annotation.JsonIgnore;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.HashMap;
+<i>6</i>&nbsp;import java.util.Map;
+<i>7</i>&nbsp;import java.util.UUID;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;public class CategoryTreeResponse {
+<i>10</i>&nbsp;    private UUID id;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    private String name;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    private String slug;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    private String parentCategory;
+<b class="fc"><i>17</i>&nbsp;</b>
+<i>18</i>&nbsp;    @JsonIgnore
+<i>19</i>&nbsp;    private Map&lt;UUID, CategoryTreeResponse&gt; childrenTree = new HashMap&lt;&gt;();
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    private CategoryTreeResponse[] childrenList;
+<b class="fc"><i>22</i>&nbsp;</b>
+<b class="fc"><i>23</i>&nbsp;    public CategoryTreeResponse(final UUID id, final String name, final String slug, final String parentCategory){</b>
+<b class="fc"><i>24</i>&nbsp;        this.id = id;</b>
+<b class="fc"><i>25</i>&nbsp;        this.name = name;</b>
+<b class="fc"><i>26</i>&nbsp;        this.slug = slug;</b>
+<b class="fc"><i>27</i>&nbsp;        this.parentCategory = parentCategory;</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;    public void setName(String name) {</b>
+<b class="nc"><i>31</i>&nbsp;        this.name = name;</b>
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<b class="fc"><i>34</i>&nbsp;    public String getName() {</b>
+<i>35</i>&nbsp;        return name;
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<b class="nc"><i>38</i>&nbsp;    public void setSlug(String slug) {</b>
+<b class="nc"><i>39</i>&nbsp;        this.slug = slug;</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<b class="fc"><i>42</i>&nbsp;    public String getSlug() {</b>
+<i>43</i>&nbsp;        return slug;
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;    public void setParentCategory(String parentCategory) {</b>
+<b class="nc"><i>47</i>&nbsp;        this.parentCategory = parentCategory;</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<b class="fc"><i>50</i>&nbsp;    public String getParentCategory() {</b>
+<i>51</i>&nbsp;        return parentCategory;
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<b class="nc"><i>54</i>&nbsp;    public void setChildrenTree(Map&lt;UUID, CategoryTreeResponse&gt; childrenTree) {</b>
+<b class="nc"><i>55</i>&nbsp;        this.childrenTree = childrenTree;</b>
+<i>56</i>&nbsp;    }
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;    public Map&lt;UUID, CategoryTreeResponse&gt; getChildrenTree() {</b>
+<i>59</i>&nbsp;        return childrenTree;
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<b class="nc"><i>62</i>&nbsp;    public void setId(UUID id) {</b>
+<b class="nc"><i>63</i>&nbsp;        this.id = id;</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<b class="fc"><i>66</i>&nbsp;    public UUID getId() {</b>
+<i>67</i>&nbsp;        return id;
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<b class="fc"><i>70</i>&nbsp;    public CategoryTreeResponse[] getChildrenList() {</b>
+<b class="fc"><i>71</i>&nbsp;        childrenList = this.childrenTree.values().toArray(new CategoryTreeResponse[0]);</b>
+<i>72</i>&nbsp;        return childrenList;
+<i>73</i>&nbsp;    }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-04 01:55</div>
+</div>
+</body>
+</html>

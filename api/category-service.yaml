@@ -1,0 +1,127 @@
+openapi: 3.0.0
+info:
+  title: Category API
+  version: 0.0.1
+servers:
+- url: http://example.com/api
+  description: Category Service
+paths:
+  /categories:
+    post:
+      summary: create a new category.
+      description: create a new category.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+              example:
+                name: name
+                slug: slug
+                parent_category: parentName
+                is_visible: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+    get:
+      summary: get category by id or slug
+      description: get category by id or slug
+      parameters:
+      - name: id
+        in: query
+        required: false
+        description: Id of Category to be searched
+        schema:
+          type: string
+      - name: slug
+        in: query
+        required: false
+        description: Slug of Category to be searched
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categories"
+
+  /categories/{id}/tree:
+    get:
+      summary: get a category and its children as a tree
+      description: get a category and its children as a tree
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of Category to be searched
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryTreeResponse"
+
+  /categories/{id}:
+    patch:
+      summary: patch visibility of a category
+      description: patch visibility of a category
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of Category to be searched
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+components:
+  schemas:
+    Category:
+      required:
+      - name
+      - slug
+      - is_visible
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        is_visible:
+          type: boolean
+        parent_category:
+          type: string
+    Categories:
+      type: array
+      items:
+        $ref: "#/components/schemas/Category"
+    CategoryTreeResponse:
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        children_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryTreeResponse"
+        parent_category:
+          type: string
