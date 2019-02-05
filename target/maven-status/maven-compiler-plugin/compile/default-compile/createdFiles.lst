@@ -1,0 +1,10 @@
+com/demo/demoapp/service/category/CategoryService.class
+com/demo/demoapp/service/category/impl/CategoryTreeConverter.class
+com/demo/demoapp/config/DBConfig.class
+com/demo/demoapp/repository/CategoryRepository.class
+com/demo/demoapp/web/CategoryController.class
+com/demo/demoapp/service/category/domain/Category.class
+com/demo/demoapp/web/CategoryTreeResponse.class
+com/demo/demoapp/service/category/impl/CategoryServiceImpl.class
+com/demo/demoapp/web/CategoryRequest.class
+com/demo/demoapp/Application.class
