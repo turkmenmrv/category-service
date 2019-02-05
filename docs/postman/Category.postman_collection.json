@@ -24,11 +24,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8080/api/categories?slug=slug1",
+					"raw": "localhost:8081/api/categories?slug=slug1",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"api",
 						"categories"
@@ -62,11 +62,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8080/api/categories?id=8d54e126-bcab-4fe6-b873-c0c8156746ac",
+					"raw": "localhost:8081/api/categories?id=8d54e126-bcab-4fe6-b873-c0c8156746ac",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"api",
 						"categories"
@@ -100,15 +100,15 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8080/api/categories/8d54e126-bcab-4fe6-b873-c0c8156746ac/tree",
+					"raw": "localhost:8081/api/categories/c7f66a29-9ff6-4544-9981-47d9ae40c14c/tree",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"api",
 						"categories",
-						"8d54e126-bcab-4fe6-b873-c0c8156746ac",
+						"c7f66a29-9ff6-4544-9981-47d9ae40c14c",
 						"tree"
 					]
 				}
@@ -131,11 +131,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8080/api/categories/8d54e126-bcab-4fe6-b873-c0c8156746ac?is_visible=false",
+					"raw": "localhost:8081/api/categories/8d54e126-bcab-4fe6-b873-c0c8156746ac?is_visible=false",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"api",
 						"categories",
@@ -164,14 +164,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\" : \"category\",\n\t\"slug\" : \"slug1\",\n\t\"is_visible\" :false,\n\t\"parent_category\" : \"parent\"\n}"
+					"raw": "{\n\t\"name\" : \"name5\",\n\t\"slug\" : \"slug1\",\n\t\"is_visible\" :false,\n\t\"parent_category\" : \"\"\n}"
 				},
 				"url": {
-					"raw": "localhost:8080/api/categories",
+					"raw": "localhost:8081/api/categories",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"api",
 						"categories"
