@@ -29,12 +29,11 @@ Maintains and exposes the category information. Categories created, searched, an
     .docs/postman/CategoryService.postman_collection.json
 
 ## Starting/Testing the application
-###To bootstrap postgres db 
-     $ cd  ./src/main/resources/db/
+###To bootstrap postgres db
+     $ git clone https://github.com/turkmenmrv/category-service.git
+     $ cd  ./category-service/src/main/resources/db/
      $ ./local_bootstrap.sh  
-To start the application:
-
-    $ git clone https://github.com/turkmenmrv/category-service.git
+To start the application (in project root directory):
     $ docker build -t category-service .
     $ docker run -t --name category-service --link postgres-docker -p 8081:8081 category-service
     
